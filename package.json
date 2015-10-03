@@ -22,6 +22,7 @@
     "mustache-express": "^1.2.1",
     "nodemon": "^1.7.1",
     "static-server": "^2.0.0",
-    "twilio": "^2.4.0"
+    "twilio": "^2.4.0",
+    "underscore": "1.8.3"
   }
 }
