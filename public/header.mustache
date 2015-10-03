@@ -1,0 +1,19 @@
+<html>
+<head>
+<title>Hackference Karaoke</title>
+<script src='https://code.jquery.com/jquery-2.1.4.min.js' async></script>
+</head>
+<body>
+<script type="text/javascript" src="//media.twiliocdn.com/sdk/rtc/js/conversations/v0.9/twilio-rtc-conversations.min.js"></script>
+
+<script>
+(function () {
+  // check for WebRTC
+  if (!navigator.webkitGetUserMedia && !navigator.mozGetUserMedia) {
+    alert('WebRTC is not available in your browser.');
+    throw new Error("No WebRTC available, PANIC");
+  }
+
+  window.endpoint = new Twilio.Endpoint("{{token}}");
+}());
+</script>
