@@ -4,8 +4,14 @@ var http = require('http');
 var path = require('path');
 var express = require('express');
 var token = require('./token');
+var request = require('request');
 
 var mustacheExpress = require('mustache-express');
+
+var oldshitapikey = '47093426cabc4fe178661e2b71402ac2';
+var newbetterapikey = '81226c2ff8d06e46758d9f969815edd8';
+
+var lyricsApiUrl = 'http://api.musixmatch.com/ws/1.1/';
 
 
 // Create Express app and HTTP Server, serve up static HTML/CSS/etc from the
@@ -41,6 +47,17 @@ token.initialize(function(err) {
 
 app.get('/', function (req, res) {
   res.render('home');
+});
+
+app.get('/lyrics', function(req, res){
+   var artist = req.query.artist;
+   var track = req.query.track;
+
+   request(lyricsApiUrl+'matcher.subtitle.get?q_artist='+artist+'&q_track='+track+'&apikey='+newbetterapikey, function(err, request, data) {
+    if (!err && res.statusCode == 200) {
+        res.send(data);
+    }
+   });
 });
 
 app.get('/host', function (req, res) {

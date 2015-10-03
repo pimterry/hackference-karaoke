@@ -1,5 +1,5 @@
   var getLyrics = false;
-  var trackInfo = {};
+  var trackInfo = theLyrics = lineTime = {};
 
   DZ.init({
     appId  : '165345',
@@ -15,48 +15,23 @@
   function onMusicPlayerLoaded()
   {
 
-    /*DZ.Event.subscribe('player_play', function(arg){
-      DZ.Event.subscribe('player_position', function(arg){
-        if(arg[0] > 0 && arg[0] < 1){
-          console.log()
-        }
-        console.log(arg);
-        //event_listener_append('position', arg[0], arg[1]);
-        //$(&quot;#slider_seek&quot;).find('.bar').css('width', (100*arg[0]/arg[1]) + '%');
-      });
-    });*/
+    DZ.Event.subscribe('player_position', function(arg){
+      console.log(arg);
+
+      //event_listener_append('position', arg[0], arg[1]);
+      //$(&quot;#slider_seek&quot;).find('.bar').css('width', (100*arg[0]/arg[1]) + '%');
+    });
 
     DZ.Event.subscribe('player_buffering', function(){
       if(!getLyrics){
-        console.log(trackInfo);
-
-        var posTitle = trackInfo.title.indexOf(' (Originally Performed by ');
-        var strLngh = trackInfo.length;
-
-        var trackName = trackInfo.title.substring(0,posTitle);
-        var trackArtists = trackInfo.title.substring(posTitle, strLngh);
-
-        console.log(trackName);
-        console.log(strLngh);
-
-        /*$.ajax({
-          url :lyricsApiUrl+"matcher.track.get?q_artist="++"&q_track="+,
-          data : {},
-          jsonp : 'callback',
-          success : function(albumData) {
-          }
-        });*/
+        getLyrics = true;
+        getTheLyrics();
       }
     });
   }
 
-  function getTheLyrics()
+  function httpGetAlbumTracks(apiUrl)
   {
-    //matcher.track.get?q_artist=eminem&q_track=lose%20yourself%20(soundtrack)
-  }
-
-	function httpGetAlbumTracks(apiUrl)
-	{
     $.ajax({
         dataType: "jsonp",
         url :apiUrl+"/artist/"+artistId+"/albums?output=jsonp",
@@ -95,7 +70,41 @@
     function callback(data){
         console.log(data);
     };
-	}
+  }
+
+  function getTheLyrics()
+  {
+      var songArt = /(.*) \(Originally Performed by (.*)\) \[Karaoke Version\]/.exec(trackInfo.title);
+
+      $.ajax({
+        dataType: "json",
+        url: '/lyrics?artist='+songArt[2]+'&track='+songArt[1],
+        data : {},
+        success : function(lyricsData) {
+          theLyrics = lyricsData.message.body.subtitle.subtitle_body;
+          runThemLyrics(theLyrics);
+        }
+      });
+  }
+
+  function runThemLyrics(lyrics)
+  {
+    var reg = new RegExp(/\[0(.*)\] (.*)/gi);
+    var result;
+    var i = 0;
+    while((result = reg.exec(lyrics)) !== null) {
+      lineTime[result[1]] = result[2]
+      i++;
+    }
+    for (firstLine in lineTime){ 
+      var div = document.getElementById('lyrics');
+      console.log(firstLine);
+      console.log(lineTime);
+      div.innerHTML = lineTime[firstLine.toString()]; 
+      break;
+    }
+  }
+
 
 	function loadSpotifySong(track)
 	{
@@ -105,7 +114,6 @@
 
 
 	var apiUrl = 'http://api.deezer.com';
-  var lyricsApiUrl = 'http://api.musixmatch.com/ws/1.1/';
   var artistId = '321401';
 	var albumTracks = songlinks = '';
 
