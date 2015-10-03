@@ -1,6 +1,21 @@
 <html>
 <head>
 <title>Hackference Karaoke</title>
+</head>
+<body>
+<style>
+#remote-media video {
+  display: none;
+}
+</style>
+<div id="remote-media"></div>
+
+Room name:<input type="text" value="hackference" id="connect-to"></input>
+<button id="connect">Connect</button>
+
+
+
+
 <script type="text/javascript" src="//media.twiliocdn.com/sdk/rtc/js/conversations/v0.9/twilio-rtc-conversations.min.js"></script>
 <script>
 (function () {
@@ -12,7 +27,7 @@ if (!navigator.webkitGetUserMedia && !navigator.mozGetUserMedia) {
 }
 
 // generate an access token in the Twilio Account Portal - https://www.twilio.com/user/account/video/testing-tools
-window.accessToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImN0eSI6InR3aWxpby1zYXQ7dj0xIn0.eyJqdGkiOiJTSzU5YzBiZGNjMzkyNjlhMDI0YWE5YzU5ODVlOTYxYjdlLTE0NDM4NzQyNTkiLCJpc3MiOiJTSzU5YzBiZGNjMzkyNjlhMDI0YWE5YzU5ODVlOTYxYjdlIiwic3ViIjoiQUM1MTIwZDBmODA2NTgzZTMxMTgxMmYxNDk4ZjYwMTIwNyIsIm5iZiI6MTQ0Mzg3NDI1OSwiZXhwIjoxNDQzOTYwNjU5LCJncmFudHMiOlt7InJlcyI6Imh0dHBzOlwvXC9hcGkudHdpbGlvLmNvbVwvMjAxMC0wNC0wMVwvQWNjb3VudHNcL0FDNTEyMGQwZjgwNjU4M2UzMTE4MTJmMTQ5OGY2MDEyMDdcL1Rva2Vucy5qc29uIiwiYWN0IjpbIlBPU1QiXX0seyJyZXMiOiJzaXA6dGltQEFDNTEyMGQwZjgwNjU4M2UzMTE4MTJmMTQ5OGY2MDEyMDcuZW5kcG9pbnQudHdpbGlvLmNvbSIsImFjdCI6WyJsaXN0ZW4iLCJpbnZpdGUiXX1dfQ.K9T6hQhyqNkbCXWgB8DYQT3W2A9PDaPyFF2aCic9vuQ';
+window.accessToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImN0eSI6InR3aWxpby1zYXQ7dj0xIn0.eyJqdGkiOiJTSzU5YzBiZGNjMzkyNjlhMDI0YWE5YzU5ODVlOTYxYjdlLTE0NDM4NzY5OTYiLCJpc3MiOiJTSzU5YzBiZGNjMzkyNjlhMDI0YWE5YzU5ODVlOTYxYjdlIiwic3ViIjoiQUM1MTIwZDBmODA2NTgzZTMxMTgxMmYxNDk4ZjYwMTIwNyIsIm5iZiI6MTQ0Mzg3Njk5NiwiZXhwIjoxNDQzOTYzMzk2LCJncmFudHMiOlt7InJlcyI6Imh0dHBzOlwvXC9hcGkudHdpbGlvLmNvbVwvMjAxMC0wNC0wMVwvQWNjb3VudHNcL0FDNTEyMGQwZjgwNjU4M2UzMTE4MTJmMTQ5OGY2MDEyMDdcL1Rva2Vucy5qc29uIiwiYWN0IjpbIlBPU1QiXX0seyJyZXMiOiJzaXA6aGFja2ZlcmVuY2VAQUM1MTIwZDBmODA2NTgzZTMxMTgxMmYxNDk4ZjYwMTIwNy5lbmRwb2ludC50d2lsaW8uY29tIiwiYWN0IjpbImxpc3RlbiIsImludml0ZSJdfV19.Hl4fkoDQAp5qMxC8invja9pCJO39L9yVDIAig3enbkc';
 
 // create an Endpoint and connect to Twilio
 endpoint = new Twilio.Endpoint(accessToken);
@@ -25,7 +40,6 @@ endpoint.listen().then(
 
 // successfully connected!
 function endpointConnected() {
-  alert('Connected!');
   log("Connected to Twilio. Listening for incoming Invites as '" + endpoint.address + "'");
 };
 
@@ -61,10 +75,19 @@ function conversationStarted(conversation) {
   });
 }
 
+document.getElementById("connect").addEventListener('click', function () {
+  var inviteTo = document.getElementById('connect-to').value;
+  var options = {};
+  endpoint.createConversation(inviteTo, options).then(
+    conversationStarted,
+    function (error) {
+      log('Unable to create conversation');
+      console.error('Unable to create conversation', error);
+    }
+  );
+});
+
 }());
 </script>
-</head>
-<body>
-<div id="remote-media"></div>
 </body>
 </html>
