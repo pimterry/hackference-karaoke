@@ -25,7 +25,7 @@ endpoint.listen().then(
 
 // successfully connected!
 function endpointConnected() {
-  alert('Connected!');
+  //alert('Connected!');
   log("Connected to Twilio. Listening for incoming Invites as '" + endpoint.address + "'");
 };
 
@@ -36,5 +36,36 @@ function log(message) {
 </script>
 </head>
 <body>
+	<div id="tracks"></div>
+	<script>
+		function httpGetAlbumTRacks(albumUrl)
+		{
+		    var xmlHttp = new XMLHttpRequest();
+		    xmlHttp.onreadystatechange = function() { 
+		        if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
+		        	var listHTML = document.createElement('ul');
+		        	albumTracks = JSON.parse(xmlHttp.responseText);
+					for (var item of albumTracks.tracks.items) {
+						listHTML.innerHTML += '<li><a href="'+item.href+'" onclick="loadSpotifySong(this); return false;">'+item.name+'</a></li>';
+					    document.getElementById('tracks').appendChild(listHTML);
+					    songLinks = document.querySelectorAll('a');
+					}
+				}
+		    }
+		   	xmlHttp.open( "GET", albumUrl, false );
+		    xmlHttp.send( null );
+		}
+
+		function loadSpotifySong(songHREF){
+			console.log(songHREF);
+		}
+
+
+		var albumUrl = 'https://api.spotify.com/v1/albums/4wNYx6KOYSCRPOhZ0Z2vS1';
+		var albumTracks = songlinks = '';
+
+		httpGetAlbumTRacks(albumUrl);
+
+	</script>
 </body>
 </html>
