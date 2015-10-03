@@ -49,6 +49,6 @@ app.get('/host', function (req, res) {
 });
 
 app.get('/join', function (req, res) {
-  var roomToken = token.generateToken(req.query.name);
-  res.render('join', { token: roomToken, name: req.query.name });
+  var participantToken = token.generateToken(req.query.name + "-participant");
+  res.render('join', { token: participantToken, name: req.query.name });
 });

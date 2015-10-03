@@ -10,7 +10,7 @@
 
   // successfully connected!
   function endpointConnected() {
-    log("Connected to Twilio. Listening for incoming Invites as '" + window.endpoint.address + "'");
+    log("Connected to Twilio as '" + window.endpoint.address + "'");
   };
 
   // activity log
@@ -20,13 +20,18 @@
 
   window.endpoint.on('invite', function (invite) {
     log('Incoming invite from: ' + invite.from);
-    invite.accept().then(conversationStarted);
+    invite.accept({
+      localStreamConstraints: { audio: true, video: false }
+    }).then(conversationStarted);
   });
 
   function conversationStarted(conversation) {
+    conversation.localMedia.removeCamera();
+    conversation.localMedia.removeMicrophone();
+
     log("In an active Conversation");
 
-    // when a participant joins, draw their video on screen
+    // when a participant joins, load their audio
     conversation.on('participantConnected', function (participant) {
       log("Participant '" + participant.address + "' connected");
       participant.media.attach('#remote-media');
@@ -37,7 +42,7 @@
       log("Participant '" + participant.address + "' disconnected");
     });
 
-    // when the conversation ends, stop capturing local video
+    // when the conversation ends, stop capturing local media
     conversation.on('ended', function (conversation) {
       log("Connected to Twilio. Listening for incoming invites as '" + window.endpoint.address + "'");
       conversation.localMedia.stop();
