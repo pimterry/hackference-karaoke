@@ -32,9 +32,39 @@ function endpointConnected() {
 // activity log
 function log(message) {
   console.log(message);
-};}());
+};
+
+endpoint.on('invite', function (invite) {
+  log('Incoming invite from: ' + invite.from);
+  invite.accept().then(conversationStarted);
+});
+
+function conversationStarted(conversation) {
+  log("In an active Conversation");
+
+  // when a participant joins, draw their video on screen
+  conversation.on('participantConnected', function (participant) {
+    log("Participant '" + participant.address + "' connected");
+    participant.media.attach('#remote-media');
+  });
+
+  // when a participant disconnects, note in log
+  conversation.on('participantDisconnected', function (participant) {
+    log("Participant '" + participant.address + "' disconnected");
+  });
+
+  // when the conversation ends, stop capturing local video
+  conversation.on('ended', function (conversation) {
+    log("Connected to Twilio. Listening for incoming Invites as '" + endpoint.address + "'");
+    conversation.localMedia.stop();
+    conversation.disconnect();
+  });
+}
+
+}());
 </script>
 </head>
 <body>
+<div id="remote-media"></div>
 </body>
 </html>
