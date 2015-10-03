@@ -23,6 +23,10 @@
     "nodemon": "^1.7.1",
     "static-server": "^2.0.0",
     "twilio": "^2.4.0",
-    "underscore": "1.8.3"
+    "underscore": "1.8.3",
+    "scmp": "0.0.3",
+    "q": "0.9.7",
+    "jwt-simple": "0.3.x",
+    "request": "2.55.x"
   }
 }
