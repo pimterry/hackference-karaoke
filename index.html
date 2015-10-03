@@ -1,0 +1,40 @@
+<html>
+<head>
+<title>Hackference Karaoke</title>
+<script type="text/javascript" src="//media.twiliocdn.com/sdk/rtc/js/conversations/v0.9/twilio-rtc-conversations.min.js"></script>
+<script>
+(function () {
+var endpoint;
+
+// check for WebRTC
+if (!navigator.webkitGetUserMedia && !navigator.mozGetUserMedia) {
+  alert('WebRTC is not available in your browser.');
+}
+
+// generate an access token in the Twilio Account Portal - https://www.twilio.com/user/account/video/testing-tools
+window.accessToken = '';
+
+// create an Endpoint and connect to Twilio
+endpoint = new Twilio.Endpoint(accessToken);
+endpoint.listen().then(
+  endpointConnected,
+  function (error) {
+    log('Could not connect to Twilio: ' + error.message);
+  }
+);
+
+// successfully connected!
+function endpointConnected() {
+  alert('Connected!');
+  log("Connected to Twilio. Listening for incoming Invites as '" + endpoint.address + "'");
+};
+
+// activity log
+function log(message) {
+  console.log(message);
+};}());
+</script>
+</head>
+<body>
+</body>
+</html>

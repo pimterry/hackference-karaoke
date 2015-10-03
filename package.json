@@ -1,0 +1,23 @@
+{
+  "name": "hackference-karaoke",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./node_modules/.bin/static-server ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pimterry/hackference-karaoke.git"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/pimterry/hackference-karaoke/issues"
+  },
+  "homepage": "https://github.com/pimterry/hackference-karaoke#readme",
+  "dependencies": {
+    "nodemon": "^1.7.1",
+    "static-server": "^2.0.0"
+  }
+}
