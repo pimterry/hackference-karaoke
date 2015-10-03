@@ -5,10 +5,17 @@ var path = require('path');
 var express = require('express');
 var token = require('./token');
 
+var mustacheExpress = require('mustache-express');
+
+
 // Create Express app and HTTP Server, serve up static HTML/CSS/etc from the
 // public directory
 var app = express();
 app.use(express.static(path.join(__dirname, 'public')));
+app.engine('mustache', mustacheExpress());
+app.set('view engine', 'mustache');
+app.set('views', __dirname + '/public');
+
 var server = http.createServer(app);
 
 // Generate a JWT token to use with the video SDK
@@ -32,4 +39,16 @@ token.initialize(function(err) {
     });
 });
 
-app.use(express.static('public'));
+app.get('/home', function (req, res) {
+  res.render('home');
+});
+
+app.get('/host', function (req, res) {
+  var roomToken = token.generateToken(req.query.name);
+  res.render('host', { token: roomToken, name: req.query.name });
+});
+
+app.get('/join', function (req, res) {
+  var roomToken = token.generateToken(req.query.name);
+  res.render('join', { token: roomToken, name: req.query.name });
+});

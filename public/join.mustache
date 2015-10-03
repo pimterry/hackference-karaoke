@@ -1,0 +1,56 @@
+{{> header}}
+<script>
+(function () {
+  window.endpoint.listen().then(
+    endpointConnected,
+    function (error) {
+      log('Could not connect to Twilio: ' + error.message);
+    }
+  );
+
+  // successfully connected!
+  function endpointConnected() {
+    log("Connected to Twilio. Listening for incoming Invites as '" + window.endpoint.address + "'");
+  };
+
+  // activity log
+  function log(message) {
+    console.log(message);
+  };
+
+  function conversationStarted(conversation) {
+    log("In an active Conversation");
+
+    // when a participant joins, draw their video on screen
+    conversation.on('participantConnected', function (participant) {
+      log("Participant '" + participant.address + "' connected");
+      participant.media.attach('#remote-media');
+    });
+
+    // when a participant disconnects, note in log
+    conversation.on('participantDisconnected', function (participant) {
+      log("Participant '" + participant.address + "' disconnected");
+    });
+
+    // when the conversation ends, stop capturing local video
+    conversation.on('ended', function (conversation) {
+      log("Connected to Twilio. Listening for incoming invites as '" + window.endpoint.address + "'");
+      conversation.localMedia.stop();
+      conversation.disconnect();
+    });
+  }
+
+  window.endpoint.createConversation("{{name}}", {}).then(
+    conversationStarted,
+    function (error) {
+      log('Unable to create conversation');
+      console.error('Unable to create conversation', error);
+    }
+  );
+}());
+</script>
+
+Joining {{name}}
+<div id="remote-media"></div>
+
+{{> footer}}
