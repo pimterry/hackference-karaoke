@@ -21,7 +21,6 @@ exports.initialize = function(callback) {
         if (err) return callback.call(this, err);
 
         // Store returned values from API
-        console.log(data);
         SIGNING_KEY_SID = data.sid;
         SIGNING_KEY_SECRET = data.secret;
 
@@ -35,9 +34,6 @@ exports.initialize = function(callback) {
 // Twilio back end services for NAT traversal and general "endpoint" services
 // like listening for inbound calls and initiating outbound calls.
 exports.generateToken = function(name) {
-    console.log(SIGNING_KEY_SID);
-    console.log(SIGNING_KEY_SECRET);
-
     var token = new twilio.AccessToken(
         // Sid for the signing key we generated on init
         SIGNING_KEY_SID,

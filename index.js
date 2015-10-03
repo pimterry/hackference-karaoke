@@ -31,3 +31,5 @@ token.initialize(function(err) {
         console.log('Express server now listening on *:' + port);
     });
 });
+
+app.use(express.static('public'));
