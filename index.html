@@ -11,6 +11,8 @@
 
 <div id="tracks"></div>
 
+<div id="musicPlayer"></div>
+
 <div id="remote-media"></div>
 
 Room name:<input type="text" value="hackference" id="connect-to"></input>
@@ -101,7 +103,8 @@ document.getElementById("connect").addEventListener('click', function () {
 		        	var listHTML = document.createElement('ul');
 		        	albumTracks = JSON.parse(xmlHttp.responseText);
 					for (var item of albumTracks.tracks.items) {
-						listHTML.innerHTML += '<li><a href="'+item.href+'" onclick="loadSpotifySong(this); return false;">'+item.name+'</a></li>';
+						var shitHead = '"'+item.uri+'"'
+						listHTML.innerHTML += "<li><a href='#"+item.id+"' onclick='loadSpotifySong("+shitHead+"); return false;'>"+item.name+"</a></li>";
 					    document.getElementById('tracks').appendChild(listHTML);
 					    songLinks = document.querySelectorAll('a');
 					}
@@ -111,8 +114,14 @@ document.getElementById("connect").addEventListener('click', function () {
 		    xmlHttp.send( null );
 		}
 
-		function loadSpotifySong(songHREF){
-			console.log(songHREF);
+		function loadSpotifySong(songURI)
+		{
+			//<iframe src="https://embed.spotify.com/?uri=spotify:track:4th1RQAelzqgY7wL53UGQt" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+			//.document.getElementById('spotifyPlayer').removeChild(this);
+			var spotifyPlayer = document.createElement('div');
+			console.log(spotifyPlayer);
+			spotifyPlayer.innerHTML = '<iframe src="https://embed.spotify.com/?uri='+songURI+'" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>';
+			document.getElementById('musicPlayer').appendChild(spotifyPlayer);
 		}
 
 
@@ -120,7 +129,6 @@ document.getElementById("connect").addEventListener('click', function () {
 		var albumTracks = songlinks = '';
 
 		httpGetAlbumTRacks(albumUrl);
-
 	</script>
 </body>
 </html>
