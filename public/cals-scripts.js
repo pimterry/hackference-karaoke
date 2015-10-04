@@ -23,7 +23,7 @@
     countDown = posKeys[0];
     DZ.Event.subscribe('player_position', function(arg){
 
-      countDown = parseInt(parseInt(posKeys[i]) - arg[0]);
+      countDown = parseInt(parseInt(posKeys[i]) - arg[0]+1);
 
       if((arg[0]) >= posKeys[i]){
         var div = document.getElementById('lyrics');

@@ -9,8 +9,8 @@
     var current = data.current;
     var next = data.next;
 
-    document.getElementById("currentLyric").textContent = current;
-    document.getElementById("nextLyric").textContent = next;
+    document.getElementById("lyrics").textContent = current;
+    document.getElementById("nextLine").textContent = next;
   });
 
   window.endpoint.listen().then(
@@ -69,8 +69,12 @@
       Joining {{name}}...
     </h2>
     <h4>Lyrics:</h4>
-    <h1 id="currentLyric"></h1>
-    <h2 style='opacity: 0.8' id="nextLyric"></h2>
+    <div class="overlay"></div>
+      <div id="countDown"></div>
+      <div class="singAlong">
+        <h1 id="lyrics"></h1>
+        <h3 id="nextLine"></h3>
+      </div>
   </div>
 </div>
 
