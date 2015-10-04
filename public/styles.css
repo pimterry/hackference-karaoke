@@ -22,7 +22,7 @@
 	display: none !important;
 }
 
-.theLyrics .fp-tableCell, .theLyrics{
+.theLyrics .fp-tableCell{
 	width:100% !important;
 	text-align:center;
 	display:block !important;
@@ -41,6 +41,10 @@
 	width:100% !important;
 	z-index:9999;
 }
+
+ .jumbotron .theLyrics, .singAlong{
+ 	top:5% !important;
+ }
 
 .theLyrics .singAlong{
 
