@@ -7,7 +7,7 @@
 
   DZ.init({
     appId  : '165345',
-    channelUrl : 'http://localhost:3000/channel.html',
+    channelUrl : 'https://hackference-karaoke.herokuapp.com/channel.html',
     player: {
       container: 'musicPlayer',
       width : 800,
