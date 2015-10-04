@@ -7,12 +7,22 @@ var token = require('./token');
 var request = require('request');
 
 var mustacheExpress = require('mustache-express');
+var bodyParser = require('body-parser')
 
 var oldshitapikey = '47093426cabc4fe178661e2b71402ac2';
 var newbetterapikey = '81226c2ff8d06e46758d9f969815edd8';
 
 var lyricsApiUrl = 'http://api.musixmatch.com/ws/1.1/';
 
+var Pusher = require('pusher');
+
+var pusher = new Pusher({
+  appId: '145873',
+  key: '36a89f4dfb756402cf24',
+  secret: '250713c74432a978deeb',
+  encrypted: true
+});
+pusher.port = 443;
 
 // Create Express app and HTTP Server, serve up static HTML/CSS/etc from the
 // public directory
@@ -21,6 +31,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.engine('mustache', mustacheExpress());
 app.set('view engine', 'mustache');
 app.set('views', __dirname + '/public');
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+})); 
 
 var server = http.createServer(app);
 
@@ -68,4 +83,18 @@ app.get('/host', function (req, res) {
 app.get('/join', function (req, res) {
   var participantToken = token.generateToken(req.query.name + "-participant");
   res.render('join', { token: participantToken, name: req.query.name });
+});
+
+// This is hilariously insecure
+app.post('/lyrics-update', function (req, res) {
+  var name = req.body.name;
+  var current = req.body.current;
+  var next = req.body.next;
+
+  pusher.trigger('lyrics-' + name, 'lyrics', {
+    current: current,
+    next: next
+  });
+
+  res.sendStatus(200);
 });

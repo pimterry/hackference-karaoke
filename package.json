@@ -17,16 +17,18 @@
   },
   "homepage": "https://github.com/pimterry/hackference-karaoke#readme",
   "dependencies": {
+    "body-parser": "^1.14.1",
     "dotenv": "^1.2.0",
     "express": "^4.13.3",
+    "jwt-simple": "0.3.x",
     "mustache-express": "^1.2.1",
     "nodemon": "^1.7.1",
+    "pusher": "^1.0.6",
+    "q": "0.9.7",
+    "request": "2.55.x",
+    "scmp": "0.0.3",
     "static-server": "^2.0.0",
     "twilio": "^2.4.0",
-    "underscore": "1.8.3",
-    "scmp": "0.0.3",
-    "q": "0.9.7",
-    "jwt-simple": "0.3.x",
-    "request": "2.55.x"
+    "underscore": "1.8.3"
   }
 }

@@ -1,6 +1,18 @@
 {{> header}}
 <script>
 (function () {
+  var pusher = new Pusher('36a89f4dfb756402cf24', {
+    encrypted: true
+  });
+  var channel = pusher.subscribe('lyrics-{{name}}');
+  channel.bind('lyrics', function(data) {
+    var current = data.current;
+    var next = data.next;
+
+    document.getElementById("currentLyric").textContent = current;
+    document.getElementById("nextLyric").textContent = next;
+  });
+
   window.endpoint.listen().then(
     endpointConnected,
     function (error) {
@@ -56,6 +68,9 @@
     <h2 id="status">
       Joining {{name}}...
     </h2>
+    <h4>Lyrics:</h4>
+    <h1 id="currentLyric"></h1>
+    <h2 style='opacity: 0.8' id="nextLyric"></h2>
   </div>
 </div>
 

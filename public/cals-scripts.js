@@ -22,9 +22,15 @@
     DZ.Event.subscribe('player_position', function(arg){
       if((arg[0]) >= posKeys[i]){
         var div = document.getElementById('lyrics');
-        div.innerHTML = lineTime[posKeys[i]];
+        var currentLyric = lineTime[posKeys[i]];
+        div.innerHTML = currentLyric;
+        
         var nextDiv = document.getElementById('nextLine');
-        nextDiv.innerHTML = lineTime[posKeys[i+1]];
+        var nextLyric = lineTime[posKeys[i+1]];
+        nextDiv.innerHTML = nextLyric;
+
+        pushLyrics(currentLyric, nextLyric);
+
         i++;
       }
     });
@@ -34,6 +40,14 @@
         getLyrics = true;
         getTheLyrics();
       }
+    });
+  }
+
+  function pushLyrics(current, next) {
+    $.post('/lyrics-update', {
+      name: window.roomName,
+      current: current,
+      next: next
     });
   }
 
