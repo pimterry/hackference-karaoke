@@ -121,9 +121,15 @@
       i++;
     }
     var div = document.getElementById('lyrics');
-    div.innerHTML = lineTime[posKeys[0].toString()];
+    var currentLyric = lineTime[posKeys[0]];
+    div.innerHTML = currentLyric;
+    
     var nextDiv = document.getElementById('nextLine');
-    nextDiv.innerHTML = lineTime[posKeys[1].toString()];
+    var nextLyric = lineTime[posKeys[1]];
+    nextDiv.innerHTML = nextLyric;
+
+    pushLyrics(currentLyric, nextLyric);
+
     jQuery('html, body').animate({
         scrollTop: $("#lyrics").offset().top
     }, 300);
