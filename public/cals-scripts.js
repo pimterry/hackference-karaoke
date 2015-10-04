@@ -1,5 +1,9 @@
   var getLyrics = false;
-  var trackInfo = theLyrics = lineTime = {};
+  var curPos = 0;
+  var trackInfo = {};
+  var theLyrics = {};
+  var lineTime = {};
+  var posKeys = {};
 
   DZ.init({
     appId  : '165345',
@@ -14,12 +18,15 @@
 
   function onMusicPlayerLoaded()
   {
-
+    var i = 0;
     DZ.Event.subscribe('player_position', function(arg){
-      console.log(arg);
-
-      //event_listener_append('position', arg[0], arg[1]);
-      //$(&quot;#slider_seek&quot;).find('.bar').css('width', (100*arg[0]/arg[1]) + '%');
+      if((arg[0]) >= posKeys[i]){
+        var div = document.getElementById('lyrics');
+        div.innerHTML = lineTime[posKeys[i]];
+        var nextDiv = document.getElementById('nextLine');
+        nextDiv.innerHTML = lineTime[posKeys[i+1]];
+        i++;
+      }
     });
 
     DZ.Event.subscribe('player_buffering', function(){
@@ -93,16 +100,19 @@
     var result;
     var i = 0;
     while((result = reg.exec(lyrics)) !== null) {
-      lineTime[result[1]] = result[2]
+      var a = result[1].split(':');
+      var seconds = parseInt((a[0]* 60)) + parseInt(a[1]);
+      lineTime[seconds] = result[2];
+      posKeys[i] = seconds.toString();
       i++;
     }
-    for (firstLine in lineTime){ 
-      var div = document.getElementById('lyrics');
-      console.log(firstLine);
-      console.log(lineTime);
-      div.innerHTML = lineTime[firstLine.toString()]; 
-      break;
-    }
+    var div = document.getElementById('lyrics');
+    div.innerHTML = lineTime[posKeys[0].toString()];
+    var nextDiv = document.getElementById('nextLine');
+    nextDiv.innerHTML = lineTime[posKeys[1].toString()];
+    jQuery('html, body').animate({
+        scrollTop: $("#lyrics").offset().top
+    }, 300);
   }
 
 
