@@ -10,6 +10,7 @@
     var next = data.next;
 
     document.getElementById("lyrics").textContent = current;
+    document.querySelector(".theLyrics").style.visibility = 'visible';
     document.getElementById("nextLine").textContent = next;
   });
 
@@ -68,7 +69,7 @@
     <h2 id="status">
       Joining {{name}}...
     </h2>
-    <div class="theLyrics">
+    <div class="theLyrics" style="visibility:hidden">
       <div class="overlay"></div>
         <div id="countDown"></div>
         <div class="singAlong">
