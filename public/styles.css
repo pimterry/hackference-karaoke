@@ -21,3 +21,39 @@
 .fp-controlArrow{
 	display: none !important;
 }
+
+.theLyrics .fp-tableCell{
+	width:100% !important;
+	text-align:center;
+	display:block !important;
+	position:relative;
+}
+
+.theLyrics .fp-tableCell .overlay{
+	background:rgba(0,0,0,0.4);
+	width:100%;
+	height:100%;
+}
+
+.theLyrics .singAlong{
+	position:absolute;
+	top:33%;
+	z-index:9999;
+}
+
+.theLyrics .fp-tableCell h1{
+	text-align:center;
+	width:100%;
+	font-size:55px;
+	color:#fff;
+}
+
+.theLyrics .fp-tableCell h3{
+	text-align:center;
+	opacity:0.5;
+	font-size:32px;
+	margin-top:35px;
+	width:100%;
+	z-index:9999;
+	color:#fff;
+}
