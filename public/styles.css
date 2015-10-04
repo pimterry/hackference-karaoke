@@ -42,13 +42,10 @@
 	z-index:9999;
 }
 
- .jumbotron .theLyrics, .singAlong{
+ .jumbotron .theLyrics .singAlong{
  	top:5% !important;
  }
 
-.theLyrics .singAlong{
-
-}
 
 #countDown{
 	position: absolute;
