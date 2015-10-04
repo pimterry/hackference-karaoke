@@ -2,6 +2,8 @@
 
 <script>
 (function () {
+  window.roomName = '{{name}}';
+
   window.endpoint.listen().then(
     endpointConnected,
     function (error) {
