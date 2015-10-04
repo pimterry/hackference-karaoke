@@ -81,7 +81,6 @@
                 dataType: "jsonp",
                 url :apiUrl+"/album/"+album.id+"/tracks?output=jsonp",
                 data : {},
-                jsonp : 'callback',
                 success : function(trackData) {
 
                   var listHTML = document.createElement('ul');
@@ -101,10 +100,6 @@
           }
         }
     });
-
-    function callback(data){
-        console.log(data);
-    };
   }
 
   function getTheLyrics()
