@@ -120,6 +120,7 @@
 	{
     trackInfo = JSON.parse(decodeURIComponent(track));
     DZ.player.playTracks([trackInfo.id]);
+    jQuery.fn.fullpage.moveSlideRight();
 	}
 
 

@@ -1,0 +1,23 @@
+#tracks ul{
+	width:30%;
+	float:left;
+	border-bottom:1px solid #ececec;
+}
+
+#tracks li a{
+	width:100%;
+	height:50px;
+	display:block;
+}
+
+.fp-section.fp-table, .fp-slide.fp-table{
+	display:block !important;
+
+}
+#musicPlayer{
+	display:none !important;
+}
+
+.fp-controlArrow{
+	display: none !important;
+}

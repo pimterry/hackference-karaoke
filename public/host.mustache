@@ -1,7 +1,5 @@
 {{> header}}
-<h1 id="lyrics"></h1>
-<h3 id="nextLine"></h3>
-<hr/>
+
 <script>
 (function () {
   window.endpoint.listen().then(
@@ -62,7 +60,17 @@ Hosting {{name}}
 <div id="dz-root"></div>
 
 <!-- Awesome stuff for Karaoke -->
-<div id="tracks"></div>
+<div id="fullpage">
+  <div class="section">
+    <div class="slide songs" style="overflow:scroll; height:100%; width:100%;">
+      <div id="tracks"></div>
+    </div>
+    <div class="slide theLyrics">
+      <h1 id="lyrics"></h1>
+      <h3 id="nextLine"></h3>
+    </div>
+  </div>
+</div>
 <div id="musicPlayer"></div>
 
 {{> footer}}
