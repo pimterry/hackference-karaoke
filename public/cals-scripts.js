@@ -121,11 +121,11 @@
       i++;
     }
     var div = document.getElementById('lyrics');
-    var currentLyric = lineTime[posKeys[0]];
+    var currentLyric = "** intro **";
     div.innerHTML = currentLyric;
     
     var nextDiv = document.getElementById('nextLine');
-    var nextLyric = lineTime[posKeys[1]];
+    var nextLyric = lineTime[posKeys[0]];
     nextDiv.innerHTML = nextLyric;
 
     pushLyrics(currentLyric, nextLyric);
