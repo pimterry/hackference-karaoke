@@ -123,7 +123,7 @@
 	}
 
 
-	var apiUrl = 'http://api.deezer.com';
+	var apiUrl = 'https://api.deezer.com';
   var artistId = '321401';
 	var albumTracks = songlinks = '';
 
