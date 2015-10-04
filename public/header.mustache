@@ -2,6 +2,7 @@
 <head>
   <title>Hackference Karaoke</title>
   <script src='/deezer.js'></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
   <script src='https://code.jquery.com/jquery-2.1.4.min.js'></script>
@@ -41,6 +42,7 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <p class='navbar-text'>Current room: <strong>{{name}}</strong></p>
       <form class="navbar-form navbar-right" role="host" action="/join" method="GET">
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Join room name..." name="name">
