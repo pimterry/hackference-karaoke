@@ -4,6 +4,7 @@
   var theLyrics = {};
   var lineTime = {};
   var posKeys = {};
+  var countDown = 0;
 
   DZ.init({
     appId  : '165345',
@@ -19,7 +20,11 @@
   function onMusicPlayerLoaded()
   {
     var i = 0;
+    countDown = posKeys[0];
     DZ.Event.subscribe('player_position', function(arg){
+
+      countDown = parseInt(parseInt(posKeys[i]) - arg[0]);
+
       if((arg[0]) >= posKeys[i]){
         var div = document.getElementById('lyrics');
         var currentLyric = lineTime[posKeys[i]];
@@ -33,6 +38,14 @@
 
         i++;
       }
+
+        if(countDown < 0 ){
+          countDown = posKeys[i];
+        }
+
+        
+        var countd = document.getElementById('countDown');
+        countd.innerHTML = countDown.toString()+'s';
     });
 
     DZ.Event.subscribe('player_buffering', function(){
@@ -73,6 +86,7 @@
 
                   var listHTML = document.createElement('ul');
                   albumTracks = trackData;
+
                   for (var track of albumTracks.data) {
 
                       var trackData = '"'+encodeURIComponent(JSON.stringify(track))+'"'
