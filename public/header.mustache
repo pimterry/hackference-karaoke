@@ -1,8 +1,11 @@
 <html>
 <head>
-<title>Hackference Karaoke</title>
-<script src='https://code.jquery.com/jquery-2.1.4.min.js' async></script>
-<script src='http://cdn-files.deezer.com/js/min/dz.js' async></script>
+  <title>Hackference Karaoke</title>
+  <script src='/deezer.js' async></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+  <script src='https://code.jquery.com/jquery-2.1.4.min.js'></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" async></script>
 </head>
 <body>
 <script type="text/javascript" src="//media.twiliocdn.com/sdk/rtc/js/conversations/v0.9/twilio-rtc-conversations.js"></script>
@@ -18,3 +21,34 @@
   window.endpoint = new Twilio.Endpoint("{{token}}");
 }());
 </script>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Empty Orchestra</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <form class="navbar-form navbar-right" role="host" action="/join" method="GET">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Join room name..." name="name">
+        </div>
+        <button type="submit" class="btn btn-default">Join</button>
+      </form>
+      <form class="navbar-form navbar-right" role="join" action="/host" method="GET">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Host room name..." name="name">
+        </div>
+        <button type="submit" class="btn btn-default">Host</button>
+      </form>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>

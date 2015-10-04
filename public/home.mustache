@@ -1,21 +1,66 @@
 <html>
-<body style='text-align: center'>
-<h1>Karaoke 2.0</h1>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+  <script src='https://code.jquery.com/jquery-2.1.4.min.js'></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" async></script>
+</head>
+<body style='text-align: center; background-image: url("/splash.jpg"); background-size: cover'>
+  <nav class="navbar navbar-default navbar-fixed-top" style='margin-bottom: 0'>
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">Empty Orchestra</a>
+      </div>
 
-<div style='float: left; width: 45%'>
-  <h2>Host a new room</h2>
-  <form action="/host" method="GET">
-    <input type="text" name="name" />
-    <input type="submit" value="Host" />
-  </form>
-</div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <form class="navbar-form navbar-right" role="host" action="/join" method="GET">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Join room name..." name="name">
+          </div>
+          <button type="submit" class="btn btn-default">Join</button>
+        </form>
+        <form class="navbar-form navbar-right" role="join" action="/host" method="GET">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Host room name..." name="name">
+          </div>
+          <button type="submit" class="btn btn-default">Host</button>
+        </form>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
 
-<div style='float: right; width: 45%'>
-  <h2>Join a room</h2>
-  <form action="/join" method="GET">
-    <input type="text" name="name" />
-    <input type="submit" value="Join" />
-  </form>
-</div>
+  <div class="jumbotron" style='text-align: left; background-color: rgba(220, 220, 220, 0.8)'>
+    <div class="container" style='padding-top: 10px'>
+      <h1>Karaoke time!</h1>
+      <p><strong>Empty Orchestra</strong> lets you karaoke with nothing but a laptop and your phones, streaming data for
+      any song you like through the magic of WebRTC.</p>
+      <p>Create a room on your laptop, then join the room with each singer's phone to get started</p>
+
+      <div style='display: inline-block; width: 45%; min-width: 250px'>
+        <h2>Host a new room</h2>
+        <form action="/host" method="GET">
+          <input type="text" name="name" />
+          <input type="submit" value="Host" />
+        </form>
+      </div>
+
+      <div style='display: inline-block; width: 45%; min-width: 250px'>
+        <h2>Join a room</h2>
+        <form action="/join" method="GET">
+          <input type="text" name="name" />
+          <input type="submit" value="Join" />
+        </form>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>
